@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Simple Graphics OpenGL ES 2.0</string>
+    <string name="action_settings">Settings</string>
+    <string name="triangle_button">Triangle</string>
+    <string name="cude_button">Cube</string>
+    <string name="square_button">Square</string>
+</resources>
