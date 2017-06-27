@@ -60,8 +60,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void clickCubeButtonHandler(View view) {
-        Snackbar.make(view, "Creating cube..", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
+        String item = "cube";
+        Intent intent = new Intent(this, GraphicActivity.class);
+        intent.putExtra(OBJECT_TO_DRAW, item);
+        startActivity(intent);
     }
 
     public void clickSquareButtonHandler(View view) {
