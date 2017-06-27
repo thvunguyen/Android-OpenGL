@@ -33,6 +33,8 @@ class MyGLRenderer implements GLSurfaceView.Renderer {
         GLES20.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         if(itemName.equals("triangle"))
             objectToDraw = new Triangle();
+        if(itemName.equals("square"))
+            objectToDraw = new Square();
         eye = new Vector3(0,0,-2);
         centre = new Vector3(0,0,0);
         up = new Vector3(0,1,0 );

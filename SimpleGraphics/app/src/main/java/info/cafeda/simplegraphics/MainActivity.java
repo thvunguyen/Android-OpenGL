@@ -65,8 +65,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void clickSquareButtonHandler(View view) {
-        Snackbar.make(view, "Creating square..", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
+        String item = "square";
+        Intent intent = new Intent(this, GraphicActivity.class);
+        intent.putExtra(OBJECT_TO_DRAW, item);
+        startActivity(intent);
     }
 
 }
