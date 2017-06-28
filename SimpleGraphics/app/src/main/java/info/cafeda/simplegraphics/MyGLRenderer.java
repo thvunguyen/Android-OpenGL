@@ -34,15 +34,23 @@ class MyGLRenderer implements GLSurfaceView.Renderer {
         GLES20.glEnable( GLES20.GL_DEPTH_TEST );
         GLES20.glDepthFunc( GLES20.GL_LEQUAL );
         GLES20.glDepthMask( true );
+
+        eye = new Vector3(0.0f,0.0f,-2.0f);
+        centre = new Vector3(0,0,0);
+        up = new Vector3(0,1,0 );
+
         if(itemName.equals("triangle"))
             objectToDraw = new Triangle();
         if(itemName.equals("square"))
             objectToDraw = new Square();
         if(itemName.equals("cube"))
             objectToDraw = new Cube();
-        eye = new Vector3(0,0,-2);
-        centre = new Vector3(0,0,0);
-        up = new Vector3(0,1,0 );
+        if(itemName.equals("geometry")) {
+            FlatWhiteGrid terrain = new FlatWhiteGrid(16,16);
+            objectToDraw = new DrawableGeometry(terrain.positions,terrain.colors,terrain.drawOrder);
+            eye = new Vector3(-1.0f,1.0f,-1.0f);
+        }
+
     }
 
     @Override
@@ -52,7 +60,8 @@ class MyGLRenderer implements GLSurfaceView.Renderer {
 
         // this projection matrix is applied to object coordinates
         // in the onDrawFrame() method
-        Matrix.frustumM(mProjectionMatrix, 0, -ratio, ratio, -1, 1, 1, 5);
+        //Matrix.frustumM(mProjectionMatrix, 0, -ratio, ratio, -1, 1, 0.1f, 100);
+        Matrix.perspectiveM(mProjectionMatrix,0,90,ratio,0.1f,100);
     }
 
     @Override
@@ -77,7 +86,12 @@ class MyGLRenderer implements GLSurfaceView.Renderer {
 
         // Draw shape
         //mTriangle.draw(mMVPMatrix);
-        objectToDraw.draw(mMVPMatrix);
+        if(objectToDraw.getClass().equals(DrawableGeometry.class) ){
+            objectToDraw.drawLine(mMVPMatrix);
+        }
+        else{
+            objectToDraw.draw(mMVPMatrix);
+        }
 
     }
 

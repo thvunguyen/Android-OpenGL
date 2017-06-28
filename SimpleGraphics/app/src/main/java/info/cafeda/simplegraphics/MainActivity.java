@@ -73,4 +73,10 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void clickGeometryHandler(View view) {
+        String item = "geometry";
+        Intent intent = new Intent(this, GraphicActivity.class);
+        intent.putExtra(OBJECT_TO_DRAW, item);
+        startActivity(intent);
+    }
 }
