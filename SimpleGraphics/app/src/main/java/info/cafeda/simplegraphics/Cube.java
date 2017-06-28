@@ -170,4 +170,9 @@ public class Cube implements DrawableObject {
         GLES20.glDisableVertexAttribArray(mPositionHandle);
         GLES20.glDisableVertexAttribArray(mColorHandle);
     }
+
+    @Override
+    public void drawLine(float[] mvpMatrix) {
+
+    }
 }

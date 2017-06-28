@@ -31,4 +31,5 @@ public interface DrawableObject {
                     "}";
 
     public void draw(float[] mvpMatrix);
+    public void drawLine(float[] mvpMatrix);
 }
