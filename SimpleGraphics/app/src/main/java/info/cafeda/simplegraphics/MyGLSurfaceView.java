@@ -24,6 +24,17 @@ class MyGLSurfaceView extends GLSurfaceView {
         // Set the Renderer for drawing on the GLSurfaceView
         setRenderer(mRenderer);
     }
+    public MyGLSurfaceView(Context context, String item,int l,int w) {
+        super(context);
+
+        // Create an OpenGL ES 2.0 context
+        setEGLContextClientVersion(2);
+
+        mRenderer = new MyGLRenderer(item,l,w);
+
+        // Set the Renderer for drawing on the GLSurfaceView
+        setRenderer(mRenderer);
+    }
      @Override
     public boolean onTouchEvent(MotionEvent e){
          // MotionEvent reports input details from the touch screen

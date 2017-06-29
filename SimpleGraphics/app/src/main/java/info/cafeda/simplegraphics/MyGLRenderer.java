@@ -27,6 +27,12 @@ class MyGLRenderer implements GLSurfaceView.Renderer {
     public MyGLRenderer(String item){
         itemName = item;
     }
+    private int length,width;
+    public MyGLRenderer(String item, int length,int width){
+        itemName = item;
+        this.length = length;
+        this.width = width;
+    }
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
         // Set the background frame color
@@ -46,7 +52,7 @@ class MyGLRenderer implements GLSurfaceView.Renderer {
         if(itemName.equals("cube"))
             objectToDraw = new Cube();
         if(itemName.equals("geometry")) {
-            FlatWhiteGrid terrain = new FlatWhiteGrid(128,128);
+            FlatWhiteGrid terrain = new FlatWhiteGrid(length,width);
             objectToDraw = new DrawableGeometry(terrain.positions,terrain.colors,terrain.drawOrder,terrain.transformMatrix);
             //objectToDraw = new DrawableGeometry(terrain.positions,terrain.colors,terrain.drawOrder);
             eye = new Vector3(0.0f,1.0f,-1.0f);

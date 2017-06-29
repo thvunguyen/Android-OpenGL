@@ -12,9 +12,15 @@ public class GraphicActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         String item = getIntent().getExtras().getString(MainActivity.OBJECT_TO_DRAW);
+        int length = getIntent().getIntExtra("LENGHT",0);
+        int width = getIntent().getIntExtra("WIDTH",0);
         // Create a GLSurfaceView instance and set it
         // as the ContentView for this Activity.
-        mGLView = new MyGLSurfaceView(this,item);
+        if ((length == 0)&&(width==0)) {
+            mGLView = new MyGLSurfaceView(this, item);
+        }else{
+            mGLView = new MyGLSurfaceView(this, item,length,width);
+        }
         setContentView(mGLView);
     }
 }
