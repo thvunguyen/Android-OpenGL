@@ -46,9 +46,10 @@ class MyGLRenderer implements GLSurfaceView.Renderer {
         if(itemName.equals("cube"))
             objectToDraw = new Cube();
         if(itemName.equals("geometry")) {
-            FlatWhiteGrid terrain = new FlatWhiteGrid(16,16);
-            objectToDraw = new DrawableGeometry(terrain.positions,terrain.colors,terrain.drawOrder);
-            eye = new Vector3(-1.0f,1.0f,-1.0f);
+            FlatWhiteGrid terrain = new FlatWhiteGrid(128,128);
+            objectToDraw = new DrawableGeometry(terrain.positions,terrain.colors,terrain.drawOrder,terrain.transformMatrix);
+            //objectToDraw = new DrawableGeometry(terrain.positions,terrain.colors,terrain.drawOrder);
+            eye = new Vector3(0.0f,1.0f,-1.0f);
         }
 
     }

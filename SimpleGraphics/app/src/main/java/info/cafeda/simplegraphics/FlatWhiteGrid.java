@@ -1,5 +1,6 @@
 package info.cafeda.simplegraphics;
 
+import android.opengl.Matrix;
 import android.util.Log;
 
 /**
@@ -11,6 +12,7 @@ public class FlatWhiteGrid {
     private int verticesCount;
     public float[] positions;
     public float[] colors;
+    public float[] transformMatrix;
     public short[] drawOrder;
     public FlatWhiteGrid(int l, int w){
         lenght = l;
@@ -56,6 +58,27 @@ public class FlatWhiteGrid {
                 }
 
             }
+
+        transformMatrix = new float[16];
+        float[] translateMatrix = new float[16];
+        float[] scaleMatrix = new float[16];
+        float[] rotateMatrix = new float[16];
+        float[] trans = new float[16];
+        float scaleFactor = 2.0f/lenght;
+        Matrix.setIdentityM(transformMatrix,0);
+
+        Matrix.setIdentityM(scaleMatrix,0);
+        Matrix.scaleM(scaleMatrix,0,scaleFactor,1,scaleFactor);
+
+        Matrix.setIdentityM(translateMatrix,0);
+        Matrix.translateM(translateMatrix,0,-(lenght-1)*scaleFactor/2.0f, 0,-(width-1)*scaleFactor/2.0f);
+
+        Matrix.setIdentityM(rotateMatrix,0);
+        Matrix.rotateM(rotateMatrix,0,0,0,0,1.0f);
+
+        Matrix.multiplyMM(trans,0,rotateMatrix,0,scaleMatrix,0);
+        Matrix.multiplyMM(transformMatrix,0,translateMatrix,0,trans,0);
+
         StringBuilder tmp = new StringBuilder();
         for (int i = 0; i< drawOrder.length;i++)
             tmp.append(drawOrder[i]);
