@@ -26,11 +26,11 @@ class Vector3 {
     public float X;
     public float Y;
     public float Z;
-    public float lenght(){
+    public float length(){
         return (float) Math.sqrt( X*X + Y*Y + Z*Z);
     }
     public Vector3 normalize(){
-        float l = lenght();
+        float l = length();
         Vector3 result = new Vector3(X/l,Y/l,Z/l);
         return result;
     }

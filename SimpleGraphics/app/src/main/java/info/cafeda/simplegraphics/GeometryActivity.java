@@ -12,17 +12,17 @@ import static info.cafeda.simplegraphics.MainActivity.OBJECT_TO_DRAW;
 
 public class GeometryActivity extends AppCompatActivity {
 
-    EditText geometryLenght, geometryWidth;
+    EditText geometryLength, geometryWidth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_geometry);
-        geometryLenght = (EditText) findViewById(R.id.geometryLength);
+        geometryLength = (EditText) findViewById(R.id.geometryLength);
         geometryWidth = (EditText) findViewById(R.id.geometryWidth);
     }
 
     public void clickCreateGeometry(View view) {
-        String length = geometryLenght.getText().toString();
+        String length = geometryLength.getText().toString();
         String width = geometryWidth.getText().toString();
         if ((Integer.parseInt(length)>0) && (Integer.parseInt(width)>0)) {
             String item = "geometry";
