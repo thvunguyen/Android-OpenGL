@@ -1,5 +1,6 @@
 package info.cafeda.heightmapreader;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -48,5 +49,15 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void clickLocalFileHandler(View view) {
+        Intent intent = new Intent(this,ReadLocalFileActivity.class);
+        startActivity(intent);
+    }
+
+    public void clickExamplesHandler(View view) {
+        Intent intent = new Intent(this,ExampleListActivity.class);
+        startActivity(intent);
     }
 }
