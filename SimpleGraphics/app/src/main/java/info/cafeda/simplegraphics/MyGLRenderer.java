@@ -3,11 +3,18 @@ package info.cafeda.simplegraphics;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.opengl.Matrix;
-import android.os.SystemClock;
-import android.util.Log;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
+
+import info.cafeda.simplegraphics.graphics.Cube;
+import info.cafeda.simplegraphics.graphics.DrawableGeometry;
+import info.cafeda.simplegraphics.graphics.DrawableObject;
+import info.cafeda.simplegraphics.graphics.FlatWhiteGrid;
+import info.cafeda.simplegraphics.graphics.Square;
+import info.cafeda.simplegraphics.graphics.Transform;
+import info.cafeda.simplegraphics.graphics.Triangle;
+import info.cafeda.simplegraphics.graphics.Vector3;
 
 /**
  * Created by Vu Nguyen on 6/26/2017.

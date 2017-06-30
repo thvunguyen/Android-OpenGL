@@ -28,7 +28,7 @@ public class GeometryActivity extends AppCompatActivity {
             String item = "geometry";
             Intent intent = new Intent(this, GraphicActivity.class);
             intent.putExtra(OBJECT_TO_DRAW, item);
-            intent.putExtra("LENGHT", Integer.parseInt(length));
+            intent.putExtra("LENGTH", Integer.parseInt(length));
             intent.putExtra("WIDTH", Integer.parseInt(width));
             startActivity(intent);
         }else{

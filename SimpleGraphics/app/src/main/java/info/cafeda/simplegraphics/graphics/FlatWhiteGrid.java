@@ -1,4 +1,4 @@
-package info.cafeda.simplegraphics;
+package info.cafeda.simplegraphics.graphics;
 
 import android.opengl.Matrix;
 import android.util.Log;
@@ -8,18 +8,16 @@ import android.util.Log;
  */
 
 public class FlatWhiteGrid {
-    private int length, width;
-    private int verticesCount;
     public float[] positions;
     public float[] colors;
     public float[] transformMatrix;
     public short[] drawOrder;
     public FlatWhiteGrid(int l, int w){
-        length = l;
-        width = w;
-        verticesCount = length *width;
-        positions = new float[verticesCount*3];
-        colors = new float[verticesCount*4];
+        int length = l;
+        int width = w;
+        int verticesCount = length * width;
+        positions = new float[verticesCount *3];
+        colors = new float[verticesCount *4];
         for (int z = 0; z < width; z++)
             for (int x = 0; x < length; x++)
             {
@@ -71,7 +69,7 @@ public class FlatWhiteGrid {
         Matrix.scaleM(scaleMatrix,0,scaleFactor,1,scaleFactor);
 
         Matrix.setIdentityM(translateMatrix,0);
-        Matrix.translateM(translateMatrix,0,-(length -1)*scaleFactor/2.0f, 0,-(width-1)*scaleFactor/2.0f);
+        Matrix.translateM(translateMatrix,0,-(length -1)*scaleFactor/2.0f, 0,-(width -1)*scaleFactor/2.0f);
 
         Matrix.setIdentityM(rotateMatrix,0);
         Matrix.rotateM(rotateMatrix,0,0,0,0,1.0f);
@@ -80,25 +78,25 @@ public class FlatWhiteGrid {
         Matrix.multiplyMM(transformMatrix,0,translateMatrix,0,trans,0);
 
         StringBuilder tmp = new StringBuilder();
-        for (int i = 0; i< drawOrder.length;i++)
-            tmp.append(drawOrder[i]);
-        Log.d("ORDER", tmp.toString());
-        tmp = new StringBuilder();
-        for (int i = 0; i< verticesCount;i++){
-            tmp.append(positions[i+0]); tmp.append(" ");
-            tmp.append(positions[i+1]); tmp.append(" ");
-            tmp.append(positions[i+2]);
-            tmp.append("; ");
-        }
-        Log.d("POS", tmp.toString());
-        tmp = new StringBuilder();
-        for (int i = 0; i< verticesCount;i++){
-            tmp.append(colors[i+0]); tmp.append(" ");
-            tmp.append(colors[i+1]); tmp.append(" ");
-            tmp.append(colors[i+2]); tmp.append(" ");
-            tmp.append(colors[i+3]);
-            tmp.append("; ");
-        }
-        Log.d("COLOR", tmp.toString());
+//        for (int i = 0; i< drawOrder.length;i++)
+//            tmp.append(drawOrder[i]);
+//        Log.d("ORDER", tmp.toString());
+//        tmp = new StringBuilder();
+//        for (int i = 0; i< verticesCount;i++){
+//            tmp.append(positions[i+0]); tmp.append(" ");
+//            tmp.append(positions[i+1]); tmp.append(" ");
+//            tmp.append(positions[i+2]);
+//            tmp.append("; ");
+//        }
+//        Log.d("POS", tmp.toString());
+//        tmp = new StringBuilder();
+//        for (int i = 0; i< verticesCount;i++){
+//            tmp.append(colors[i+0]); tmp.append(" ");
+//            tmp.append(colors[i+1]); tmp.append(" ");
+//            tmp.append(colors[i+2]); tmp.append(" ");
+//            tmp.append(colors[i+3]);
+//            tmp.append("; ");
+//        }
+//        Log.d("COLOR", tmp.toString());
     }
 }

@@ -1,10 +1,10 @@
-package info.cafeda.simplegraphics;
+package info.cafeda.simplegraphics.graphics;
 
 /**
  * Created by Vu Nguyen on 6/26/2017.
  */
 
-class Vector3 {
+public class Vector3 {
 
     public static Vector3 cross(Vector3 v1, Vector3 v2){
         Vector3 result = new Vector3(0,0,0);
@@ -14,14 +14,13 @@ class Vector3 {
         return result;
     }
     public static float dot(Vector3 v1, Vector3 v2){
-        float result= v1.X*v2.X+v1.Y*v2.Y+v1.Z*v2.Z;
-        return result;
+        return v1.X*v2.X+v1.Y*v2.Y+v1.Z*v2.Z;
     }
     public Vector3(float X,float Y, float Z){
         this.X = X;
         this.Y = Y;
         this.Z = Z;
-        //lenght = (float) Math.sqrt( X*X + Y*Y + Z*Z);
+        //length = (float) Math.sqrt( X*X + Y*Y + Z*Z);
     }
     public float X;
     public float Y;
@@ -31,8 +30,7 @@ class Vector3 {
     }
     public Vector3 normalize(){
         float l = length();
-        Vector3 result = new Vector3(X/l,Y/l,Z/l);
-        return result;
+        return new Vector3(X/l,Y/l,Z/l);
     }
     public String toString(){
         StringBuilder sb = new StringBuilder(64);

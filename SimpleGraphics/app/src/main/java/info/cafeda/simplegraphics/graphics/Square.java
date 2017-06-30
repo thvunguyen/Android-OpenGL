@@ -1,4 +1,4 @@
-package info.cafeda.simplegraphics;
+package info.cafeda.simplegraphics.graphics;
 
 import android.opengl.GLES20;
 import android.util.Log;
@@ -33,9 +33,6 @@ public class Square implements DrawableObject {
     private final FloatBuffer colorBuffer;
     private final ShortBuffer drawListBuffer;
     private final int mProgram;
-    private int mPositionHandle;
-    private int mColorHandle;
-    private int mMVPMatrixHandle;
 
     public Square() {
         // initialize vertex byte buffer for shape coordinates and colors
@@ -100,18 +97,18 @@ public class Square implements DrawableObject {
         GLES20.glUseProgram(mProgram);
 
         // get handle to vertex shader's vPosition member and fragment shader's vColor member
-        mPositionHandle = GLES20.glGetAttribLocation(mProgram, "vPosition");
-        mColorHandle = GLES20.glGetAttribLocation(mProgram, "vColor");
+        int mPositionHandle = GLES20.glGetAttribLocation(mProgram, "vPosition");
+        int mColorHandle = GLES20.glGetAttribLocation(mProgram, "vColor");
         // Enable a handle to the position and color of triangle vertices
         GLES20.glEnableVertexAttribArray(mPositionHandle);
-        GLES20.glEnableVertexAttribArray( mColorHandle);
+        GLES20.glEnableVertexAttribArray(mColorHandle);
 
         // Prepare the triangle coordinate and color data
         GLES20.glVertexAttribPointer(mPositionHandle, COORDS_PER_VERTEX, GLES20.GL_FLOAT, false, vertexStride, vertexBuffer);
         GLES20.glVertexAttribPointer(mColorHandle, COLOR_VALUES_PER_VERTEX, GLES20.GL_FLOAT, false, colorStride, colorBuffer);
 
         // get handle to shape's transformation matrix
-        mMVPMatrixHandle = GLES20.glGetUniformLocation(mProgram, "uMVPMatrix");
+        int mMVPMatrixHandle = GLES20.glGetUniformLocation(mProgram, "uMVPMatrix");
 
         // Pass the projection and view transformation to the shader
         GLES20.glUniformMatrix4fv(mMVPMatrixHandle, 1, false, mvpMatrix, 0);

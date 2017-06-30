@@ -10,7 +10,6 @@ import android.view.MotionEvent;
 
 class MyGLSurfaceView extends GLSurfaceView {
     private final MyGLRenderer mRenderer;
-    private final float TOUCH_SCALE_FACTOR = 1.0f / 16;
     private float mPreviousX;
     private float mPreviousY;
     public MyGLSurfaceView(Context context, String item) {
@@ -50,6 +49,7 @@ class MyGLSurfaceView extends GLSurfaceView {
                  float dx = x - mPreviousX;
                  float dy = y - mPreviousY;
 
+                 float TOUCH_SCALE_FACTOR = 1.0f / 16;
                  mRenderer.setAngle(dx * TOUCH_SCALE_FACTOR,dy * TOUCH_SCALE_FACTOR);
                  requestRender();
          }

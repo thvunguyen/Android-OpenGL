@@ -6,16 +6,15 @@ import android.os.Bundle;
 
 public class GraphicActivity extends Activity {
 
-    private GLSurfaceView mGLView;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         String item = getIntent().getExtras().getString(MainActivity.OBJECT_TO_DRAW);
-        int length = getIntent().getIntExtra("LENGHT",0);
+        int length = getIntent().getIntExtra("LENGTH",0);
         int width = getIntent().getIntExtra("WIDTH",0);
         // Create a GLSurfaceView instance and set it
         // as the ContentView for this Activity.
+        GLSurfaceView mGLView;
         if ((length == 0)&&(width==0)) {
             mGLView = new MyGLSurfaceView(this, item);
         }else{

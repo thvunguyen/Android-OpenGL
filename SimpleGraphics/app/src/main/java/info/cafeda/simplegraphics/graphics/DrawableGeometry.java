@@ -1,4 +1,4 @@
-package info.cafeda.simplegraphics;
+package info.cafeda.simplegraphics.graphics;
 
 import android.opengl.GLES20;
 import android.opengl.Matrix;
@@ -53,12 +53,9 @@ public class DrawableGeometry implements  DrawableObject{
     private int mPositionHandle;
     private int mColorHandle;
     private int mMVPMatrixHandle;
-    private int vertexCount;
-    private int colorsCount;
 
     private void glInit(){
-        vertexCount = positions.length / COORDS_PER_VERTEX;
-        colorsCount = colors.length / COLOR_VALUES_PER_VERTEX;
+        int colorsCount = colors.length / COLOR_VALUES_PER_VERTEX;
 
         ByteBuffer bb = ByteBuffer.allocateDirect(positions.length * 4);   // [float] : 4 bytes
         ByteBuffer cbb = ByteBuffer.allocateDirect(colors.length * 4);          // [float] : 4 bytes

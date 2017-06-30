@@ -1,7 +1,6 @@
-package info.cafeda.simplegraphics;
+package info.cafeda.simplegraphics.graphics;
 
 import android.opengl.GLES20;
-import android.util.Log;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -9,33 +8,79 @@ import java.nio.FloatBuffer;
 import java.nio.ShortBuffer;
 
 /**
- * Created by Vu Nguyen on 6/26/2017.
+ * Created by Vu Nguyen on 6/27/2017.
  */
 
-public class Triangle implements DrawableObject {
+public class Cube implements DrawableObject {
 
     private float positions[] = {   // in counterclockwise order:
-            0.0f, 0.5f, 0.0f, // top
-            -0.5f, 0.0f, 0.0f, // bottom left
-            0.5f, 0.0f, 0.0f  // bottom right
+            -0.5f,  -0.5f, 0.5f, //Red
+            -0.5f,   0.5f, 0.5f,
+             0.5f,   0.5f, 0.5f,
+             0.5f,  -0.5f, 0.5f,
+            -0.5f,  -0.5f, -0.5f, //Green
+            -0.5f,   0.5f, -0.5f,
+             0.5f,   0.5f, -0.5f,
+             0.5f,  -0.5f, -0.5f,
+            -0.5f,  -0.5f, -0.5f, //Blue
+            -0.5f,  -0.5f,  0.5f,
+            -0.5f,   0.5f,  0.5f,
+            -0.5f,   0.5f, -0.5f,
+             0.5f,  -0.5f, -0.5f, //White
+             0.5f,  -0.5f,  0.5f,
+             0.5f,   0.5f,  0.5f,
+             0.5f,   0.5f, -0.5f,
+            -0.5f,   0.5f, -0.5f, //Yellow
+            -0.5f,   0.5f,  0.5f,
+             0.5f,   0.5f,  0.5f,
+             0.5f,   0.5f, -0.5f,
+            -0.5f,  -0.5f, -0.5f, // Magenta
+            -0.5f,  -0.5f,  0.5f,
+             0.5f,  -0.5f,  0.5f,
+             0.5f,  -0.5f, -0.5f,
     };
     // Set color with red, green, blue and alpha (opacity) values
     private float colors[] = {
+            1.0f, 0.0f, 0.0f, 1.0f,//Red
             1.0f, 0.0f, 0.0f, 1.0f,
+            1.0f, 0.0f, 0.0f, 1.0f,
+            1.0f, 0.0f, 0.0f, 1.0f,
+            0.0f, 1.0f, 0.0f, 1.0f,//Green
             0.0f, 1.0f, 0.0f, 1.0f,
+            0.0f, 1.0f, 0.0f, 1.0f,
+            0.0f, 1.0f, 0.0f, 1.0f,
+            0.0f, 0.0f, 1.0f, 1.0f,//Blue
             0.0f, 0.0f, 1.0f, 1.0f,
+            0.0f, 0.0f, 1.0f, 1.0f,
+            0.0f, 0.0f, 1.0f, 1.0f,
+            1.0f, 1.0f, 1.0f, 1.0f,//White
+            1.0f, 1.0f, 1.0f, 1.0f,
+            1.0f, 1.0f, 1.0f, 1.0f,
+            1.0f, 1.0f, 1.0f, 1.0f,
+            1.0f, 1.0f, 0.0f, 1.0f,//Yellow
+            1.0f, 1.0f, 0.0f, 1.0f,
+            1.0f, 1.0f, 0.0f, 1.0f,
+            1.0f, 1.0f, 0.0f, 1.0f,
+            1.0f, 0.0f, 1.0f, 1.0f,//Magenta
+            1.0f, 0.0f, 1.0f, 1.0f,
+            1.0f, 0.0f, 1.0f, 1.0f,
+            1.0f, 0.0f, 1.0f, 1.0f,
     };
-    private short drawOrder[] = { 0, 1, 2 }; // order to draw vertices
+    private short drawOrder[] = {
+            0, 1, 2, 0, 2, 3,
+            4, 5, 6, 4, 6, 7,
+            8, 9, 10, 8, 10, 11,
+            12, 13, 14, 12, 14, 15,
+            16, 17, 18, 16, 18, 19,
+            20, 21, 22, 20, 22, 23
+            }; // order to draw vertices
 
     private final FloatBuffer vertexBuffer;
     private final FloatBuffer colorBuffer;
     private final ShortBuffer drawListBuffer;
     private final int mProgram;
-    private int mPositionHandle;
-    private int mColorHandle;
-    private int mMVPMatrixHandle;
 
-    public Triangle() {
+    public Cube() {
         // initialize vertex byte buffer for shape coordinates and colors
         ByteBuffer bb = ByteBuffer.allocateDirect(positions.length * 4);   // [float] : 4 bytes
         ByteBuffer cbb = ByteBuffer.allocateDirect(colors.length * 4);          // [float] : 4 bytes
@@ -71,8 +116,8 @@ public class Triangle implements DrawableObject {
         GLES20.glCompileShader(fragmentShader);
 
         //Get status
-        Log.d("vertexShaderCompile:", GLES20.glGetShaderInfoLog(vertexShader));
-        Log.d("fragmentShaderCompile:", GLES20.glGetShaderInfoLog(vertexShader));
+        //Log.d("vertexShaderCompile:", GLES20.glGetShaderInfoLog(vertexShader));
+        //Log.d("fragmentShaderCompile:", GLES20.glGetShaderInfoLog(vertexShader));
 
         // create empty OpenGL ES Program
         mProgram = GLES20.glCreateProgram();
@@ -85,7 +130,7 @@ public class Triangle implements DrawableObject {
 
         // creates OpenGL ES program executables
         GLES20.glLinkProgram(mProgram);
-        Log.d("mProgramLinkLog", GLES20.glGetProgramInfoLog(mProgram));
+        //Log.d("mProgramLinkLog", GLES20.glGetProgramInfoLog(mProgram));
     }
 
 
@@ -98,18 +143,18 @@ public class Triangle implements DrawableObject {
         GLES20.glUseProgram(mProgram);
 
         // get handle to vertex shader's vPosition member and fragment shader's vColor member
-        mPositionHandle = GLES20.glGetAttribLocation(mProgram, "vPosition");
-        mColorHandle = GLES20.glGetAttribLocation(mProgram, "vColor");
+        int mPositionHandle = GLES20.glGetAttribLocation(mProgram, "vPosition");
+        int mColorHandle = GLES20.glGetAttribLocation(mProgram, "vColor");
         // Enable a handle to the position and color of triangle vertices
         GLES20.glEnableVertexAttribArray(mPositionHandle);
-        GLES20.glEnableVertexAttribArray( mColorHandle);
+        GLES20.glEnableVertexAttribArray(mColorHandle);
 
         // Prepare the triangle coordinate and color data
         GLES20.glVertexAttribPointer(mPositionHandle, COORDS_PER_VERTEX, GLES20.GL_FLOAT, false, vertexStride, vertexBuffer);
         GLES20.glVertexAttribPointer(mColorHandle, COLOR_VALUES_PER_VERTEX, GLES20.GL_FLOAT, false, colorStride, colorBuffer);
 
         // get handle to shape's transformation matrix
-        mMVPMatrixHandle = GLES20.glGetUniformLocation(mProgram, "uMVPMatrix");
+        int mMVPMatrixHandle = GLES20.glGetUniformLocation(mProgram, "uMVPMatrix");
 
         // Pass the projection and view transformation to the shader
         GLES20.glUniformMatrix4fv(mMVPMatrixHandle, 1, false, mvpMatrix, 0);

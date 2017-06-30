@@ -1,7 +1,4 @@
-package info.cafeda.simplegraphics;
-
-import android.opengl.Matrix;
-import android.util.Log;
+package info.cafeda.simplegraphics.graphics;
 
 import static java.lang.Math.cos;
 import static java.lang.Math.sin;
