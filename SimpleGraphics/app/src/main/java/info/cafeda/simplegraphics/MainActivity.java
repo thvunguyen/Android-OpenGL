@@ -78,4 +78,11 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, GeometryActivity.class);
         startActivity(intent);
     }
+
+    public void clickCubesHandler(View view) {
+        String item = "cubes";
+        Intent intent = new Intent(this, GraphicActivity.class);
+        intent.putExtra(OBJECT_TO_DRAW, item);
+        startActivity(intent);
+    }
 }

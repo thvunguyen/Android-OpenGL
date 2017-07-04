@@ -32,4 +32,5 @@ public interface DrawableObject {
 
     void draw(float[] mvpMatrix);
     void drawLine(float[] mvpMatrix);
+    boolean IsDrawLine();
 }

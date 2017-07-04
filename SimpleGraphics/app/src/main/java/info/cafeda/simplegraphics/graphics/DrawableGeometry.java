@@ -17,9 +17,23 @@ public class DrawableGeometry implements  DrawableObject{
     private float[] positions;
     private float[] colors;
     private short[] drawOrder;
-    private float[] transformMatrix = new float[16];
-    private float[] mMatrix = new float[16];
+    private float[] transformMatrix = new float[16]; // local transformation matrix of object (Coordination of object)
+    private float[] mMatrix = new float[16];        // Temporary matrix to store result of mutiply of global and local transformation
     private boolean isInit = false;
+    private boolean isDrawLine = false;
+
+    public DrawableGeometry(float[] positions, float[] colors, short[] drawOrder, float[] transformMatrix, boolean isDrawLine){
+        this.positions = new float[positions.length];
+        System.arraycopy(positions,0,this.positions,0,positions.length);
+        this.colors = new float[colors.length];
+        System.arraycopy(colors,0,this.colors,0,colors.length);
+        this.drawOrder = new short[drawOrder.length];
+        System.arraycopy(drawOrder,0,this.drawOrder,0,drawOrder.length);
+        System.arraycopy(transformMatrix,0,this.transformMatrix,0,16);
+        this.isDrawLine = isDrawLine;
+        glInit();
+        isInit = true;
+    }
 
     public DrawableGeometry(float[] positions, float[] colors, short[] drawOrder, float[] transformMatrix){
         this.positions = new float[positions.length];
@@ -40,8 +54,8 @@ public class DrawableGeometry implements  DrawableObject{
         System.arraycopy(colors,0,this.colors,0,colors.length);
         this.drawOrder = new short[drawOrder.length];
         System.arraycopy(drawOrder,0,this.drawOrder,0,drawOrder.length);
-        Matrix.setIdentityM(transformMatrix,0);
-        Log.d("STATUS", "1 init");
+        Matrix.setIdentityM(transformMatrix,0);// If there is not an transform matrix, set local one to identity
+        //Log.d("STATUS", "1 init");
         glInit();
         isInit = true;
     }
@@ -91,8 +105,8 @@ public class DrawableGeometry implements  DrawableObject{
         GLES20.glCompileShader(fragmentShader);
 
         //Get status
-        Log.d("vertexShaderCompile:", GLES20.glGetShaderInfoLog(vertexShader));
-        Log.d("fragmentShaderCompile:", GLES20.glGetShaderInfoLog(vertexShader));
+        //Log.d("vertexShaderCompile:", GLES20.glGetShaderInfoLog(vertexShader));
+        //Log.d("fragmentShaderCompile:", GLES20.glGetShaderInfoLog(vertexShader));
 
         // create empty OpenGL ES Program
         mProgram = GLES20.glCreateProgram();
@@ -105,8 +119,8 @@ public class DrawableGeometry implements  DrawableObject{
 
         // creates OpenGL ES program executables
         GLES20.glLinkProgram(mProgram);
-        Log.d("mProgramLinkLog", GLES20.glGetProgramInfoLog(mProgram));
-        Log.d("STATUS", "2 glInit");
+        //Log.d("mProgramLinkLog", GLES20.glGetProgramInfoLog(mProgram));
+        //Log.d("STATUS", "2 glInit");
     }
 
     public void draw(float[] mvpMatrix){
@@ -125,7 +139,7 @@ public class DrawableGeometry implements  DrawableObject{
             GLES20.glVertexAttribPointer(mPositionHandle, COORDS_PER_VERTEX, GLES20.GL_FLOAT, false, vertexStride, vertexBuffer);
             GLES20.glVertexAttribPointer(mColorHandle, COLOR_VALUES_PER_VERTEX, GLES20.GL_FLOAT, false, colorStride, colorBuffer);
 
-            Matrix.multiplyMM(mMatrix,0,transformMatrix,0,mvpMatrix,0);
+            Matrix.multiplyMM(mMatrix,0,mvpMatrix,0,transformMatrix,0);
             // get handle to shape's transformation matrix
             mMVPMatrixHandle = GLES20.glGetUniformLocation(mProgram, "uMVPMatrix");
 
@@ -140,7 +154,9 @@ public class DrawableGeometry implements  DrawableObject{
             GLES20.glDisableVertexAttribArray(mColorHandle);
         }
     }
-
+    public boolean IsDrawLine(){
+        return isDrawLine;
+    }
     @Override
     public void drawLine(float[] mvpMatrix) {
         if (isInit){
