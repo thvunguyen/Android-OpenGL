@@ -7,7 +7,7 @@ import android.opengl.Matrix;
  */
 
 public class Cubes {
-    public DrawableObject[] objectsToDraw;
+    public DrawableGeometry[] objectsToDraw;
     public Cubes(){
         float[] tmpTransformMatrix = new float [16];
         objectsToDraw = new DrawableGeometry[5];

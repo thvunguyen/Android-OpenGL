@@ -7,8 +7,8 @@ android {
         applicationId "info.cafeda.simplegraphics"
         minSdkVersion 19
         targetSdkVersion 25
-        versionCode 1
-        versionName "1.0 Beta"
+        versionCode 2
+        versionName "1.1 Beta"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

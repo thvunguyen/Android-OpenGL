@@ -3,6 +3,7 @@ package info.cafeda.simplegraphics;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.opengl.Matrix;
+import android.util.Log;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
@@ -22,8 +23,7 @@ import info.cafeda.simplegraphics.graphics.Vector3;
  */
 
 class MyGLRenderer implements GLSurfaceView.Renderer {
-    private DrawableObject[] objectsToDraw;
-    private String itemName;
+    private DrawableGeometry[] objectsToDraw;
     private Vector3 eye, centre, up;
     // mMVPMatrix is an abbreviation for "Model View Projection Matrix"
     private final float[] mMVPMatrix = new float[16];
@@ -31,18 +31,12 @@ class MyGLRenderer implements GLSurfaceView.Renderer {
     private final float[] mViewMatrix = new float[16];
     private float[] mRotationMatrix = new float[16];
 
-    public MyGLRenderer(String item) {
-        itemName = item;
+    public MyGLRenderer(DrawableGeometry[] objectsToDraw,Vector3 eye, Vector3 centre,Vector3 up) {
+        this.objectsToDraw = objectsToDraw;
+        this.eye = eye;
+        this.centre = centre;
+        this.up = up;
     }
-
-    private int length, width;
-
-    public MyGLRenderer(String item, int length, int width) {
-        itemName = item;
-        this.length = length;
-        this.width = width;
-    }
-
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
         // Set the background frame color
@@ -51,38 +45,15 @@ class MyGLRenderer implements GLSurfaceView.Renderer {
         GLES20.glDepthFunc(GLES20.GL_LEQUAL);
         GLES20.glDepthMask(true);
 
-        eye = new Vector3(0.0f, 0.0f, -2.0f);
-        centre = new Vector3(0, 0, 0);
-        up = new Vector3(0, 1, 0);
-        objectsToDraw = new DrawableObject[1];
-
-        if (itemName.equals("triangle")) {
-            objectsToDraw[0] = new DrawableGeometry(Triangle.positions, Triangle.colors, Triangle.drawOrder);
-        }
-        if (itemName.equals("square")) {
-            objectsToDraw[0] = new DrawableGeometry(Square.positions, Square.colors, Square.drawOrder);
-        }
-        if (itemName.equals("cube")) {
-            objectsToDraw[0] = new DrawableGeometry(Cube.positions, Cube.colors, Cube.drawOrder);
-        }
-        if (itemName.equals("cubes")) {
-            Cubes tmp = new Cubes();
-            objectsToDraw = tmp.objectsToDraw;
-            eye = new Vector3(0.0f, 5.0f, -5.0f);
-        }
-        if (itemName.equals("geometry")) {
-            FlatWhiteGrid terrain = new FlatWhiteGrid(length, width);
-            objectsToDraw[0] = new DrawableGeometry(terrain.positions, terrain.colors, terrain.drawOrder, terrain.transformMatrix, true);
-            eye = new Vector3(0.0f, 1.0f, -1.0f);
-        }
-
+        if (objectsToDraw != null)
+            for (int i = 0 ; i<objectsToDraw.length;i++)
+                objectsToDraw[i].GLInit();
     }
 
     @Override
     public void onSurfaceChanged(GL10 gl, int width, int height) {
         GLES20.glViewport(0, 0, width, height);
         float ratio = (float) width / height;
-
         // this projection matrix is applied to object coordinates
         // in the onDrawFrame() method
         Matrix.perspectiveM(mProjectionMatrix, 0, 90, ratio, 0.1f, 100);
@@ -90,8 +61,10 @@ class MyGLRenderer implements GLSurfaceView.Renderer {
 
     @Override
     public void onDrawFrame(GL10 gl) {
+
         // Redraw background color
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
+
         // Set the camera position (View matrix)
         Matrix.setLookAtM(mViewMatrix, 0, eye.X, eye.Y, eye.Z, centre.X, centre.Y, centre.Z, up.X, up.Y, up.Z);
 

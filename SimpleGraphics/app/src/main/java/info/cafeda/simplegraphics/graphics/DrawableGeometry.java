@@ -19,7 +19,7 @@ public class DrawableGeometry implements  DrawableObject{
     private short[] drawOrder;
     private float[] transformMatrix = new float[16]; // local transformation matrix of object (Coordination of object)
     private float[] mMatrix = new float[16];        // Temporary matrix to store result of mutiply of global and local transformation
-    private boolean isInit = false;
+    private boolean isGLInit = false;
     private boolean isDrawLine = false;
 
     public DrawableGeometry(float[] positions, float[] colors, short[] drawOrder, float[] transformMatrix, boolean isDrawLine){
@@ -31,8 +31,6 @@ public class DrawableGeometry implements  DrawableObject{
         System.arraycopy(drawOrder,0,this.drawOrder,0,drawOrder.length);
         System.arraycopy(transformMatrix,0,this.transformMatrix,0,16);
         this.isDrawLine = isDrawLine;
-        glInit();
-        isInit = true;
     }
 
     public DrawableGeometry(float[] positions, float[] colors, short[] drawOrder, float[] transformMatrix){
@@ -43,8 +41,6 @@ public class DrawableGeometry implements  DrawableObject{
         this.drawOrder = new short[drawOrder.length];
         System.arraycopy(drawOrder,0,this.drawOrder,0,drawOrder.length);
         System.arraycopy(transformMatrix,0,this.transformMatrix,0,16);
-        glInit();
-        isInit = true;
     }
 
     public DrawableGeometry(float[] positions, float[] colors, short[] drawOrder){
@@ -56,8 +52,6 @@ public class DrawableGeometry implements  DrawableObject{
         System.arraycopy(drawOrder,0,this.drawOrder,0,drawOrder.length);
         Matrix.setIdentityM(transformMatrix,0);// If there is not an transform matrix, set local one to identity
         //Log.d("STATUS", "1 init");
-        glInit();
-        isInit = true;
     }
 
     private FloatBuffer vertexBuffer;
@@ -68,7 +62,8 @@ public class DrawableGeometry implements  DrawableObject{
     private int mColorHandle;
     private int mMVPMatrixHandle;
 
-    private void glInit(){
+    public void GLInit()
+    {
         int colorsCount = colors.length / COLOR_VALUES_PER_VERTEX;
 
         ByteBuffer bb = ByteBuffer.allocateDirect(positions.length * 4);   // [float] : 4 bytes
@@ -120,11 +115,11 @@ public class DrawableGeometry implements  DrawableObject{
         // creates OpenGL ES program executables
         GLES20.glLinkProgram(mProgram);
         //Log.d("mProgramLinkLog", GLES20.glGetProgramInfoLog(mProgram));
-        //Log.d("STATUS", "2 glInit");
+        isGLInit = true;
     }
 
     public void draw(float[] mvpMatrix){
-        if (isInit){
+        if (isGLInit){
             // Add program to OpenGL ES environment
             GLES20.glUseProgram(mProgram);
 
@@ -159,7 +154,7 @@ public class DrawableGeometry implements  DrawableObject{
     }
     @Override
     public void drawLine(float[] mvpMatrix) {
-        if (isInit){
+        if (isGLInit){
             // Add program to OpenGL ES environment
             GLES20.glUseProgram(mProgram);
 
