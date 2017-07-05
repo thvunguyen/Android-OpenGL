@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 
+import info.cafeda.simplegraphics.myGL.MyGLSurfaceView;
+
 public class GraphicActivity extends Activity {
 
     @Override

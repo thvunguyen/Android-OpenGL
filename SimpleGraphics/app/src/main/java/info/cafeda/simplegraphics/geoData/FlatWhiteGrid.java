@@ -1,4 +1,4 @@
-package info.cafeda.simplegraphics.graphics;
+package info.cafeda.simplegraphics.geoData;
 
 import android.opengl.Matrix;
 

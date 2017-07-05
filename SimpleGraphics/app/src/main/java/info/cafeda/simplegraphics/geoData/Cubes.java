@@ -1,6 +1,8 @@
-package info.cafeda.simplegraphics.graphics;
+package info.cafeda.simplegraphics.geoData;
 
 import android.opengl.Matrix;
+
+import info.cafeda.simplegraphics.graphics.DrawableGeometry;
 
 /**
  * Created by Vu Nguyen on 7/4/2017.

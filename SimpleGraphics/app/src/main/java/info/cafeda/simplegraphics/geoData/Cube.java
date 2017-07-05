@@ -1,13 +1,4 @@
-package info.cafeda.simplegraphics.graphics;
-
-import android.opengl.GLES20;
-
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.nio.FloatBuffer;
-import java.nio.ShortBuffer;
-
-import static info.cafeda.simplegraphics.graphics.Triangle.colors;
+package info.cafeda.simplegraphics.geoData;
 
 /**
  * Created by Vu Nguyen on 6/27/2017.

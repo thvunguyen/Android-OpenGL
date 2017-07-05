@@ -1,23 +1,22 @@
-package info.cafeda.simplegraphics;
+package info.cafeda.simplegraphics.myGL;
 
 import android.content.Context;
 import android.opengl.GLSurfaceView;
-import android.util.Log;
 import android.view.MotionEvent;
 
-import info.cafeda.simplegraphics.graphics.Cube;
-import info.cafeda.simplegraphics.graphics.Cubes;
+import info.cafeda.simplegraphics.geoData.Cube;
+import info.cafeda.simplegraphics.geoData.Cubes;
 import info.cafeda.simplegraphics.graphics.DrawableGeometry;
-import info.cafeda.simplegraphics.graphics.FlatWhiteGrid;
-import info.cafeda.simplegraphics.graphics.Square;
-import info.cafeda.simplegraphics.graphics.Triangle;
+import info.cafeda.simplegraphics.geoData.FlatWhiteGrid;
+import info.cafeda.simplegraphics.geoData.Square;
+import info.cafeda.simplegraphics.geoData.Triangle;
 import info.cafeda.simplegraphics.graphics.Vector3;
 
 /**
  * Created by Vu Nguyen on 6/26/2017.
  */
 
-class MyGLSurfaceView extends GLSurfaceView {
+public class MyGLSurfaceView extends GLSurfaceView {
     private final MyGLRenderer mRenderer;
     private float mPreviousX;
     private float mPreviousY;
