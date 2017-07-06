@@ -80,4 +80,13 @@ class MyGLRenderer implements GLSurfaceView.Renderer {
         Transform.Up(angleUp, eye, up);
         //Log.d("GL","Eye: " + eye.toString() + "  Up: " + up.toString());
     }
+
+    public void setRotate(float radX,float radY,float radZ){
+        //visit youtube video: https://www.youtube.com/watch?v=zVoxUMitLV8
+        // and play around with extended controls of device emulator to understand this
+        //need to disable changing orientation of the phone
+        Transform.Pitch(radX,eye,centre,up);
+        Transform.Roll(radY,eye,centre,up);
+        Transform.Yaw(radZ,eye,centre,up);
+    }
 }

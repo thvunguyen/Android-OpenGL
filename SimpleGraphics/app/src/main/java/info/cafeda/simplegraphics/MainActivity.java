@@ -85,4 +85,11 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra(OBJECT_TO_DRAW, item);
         startActivity(intent);
     }
+
+    public void clickBasicVRHandler(View view) {
+        String item = "basicVR";
+        Intent intent = new Intent(this, My3DOFOrientationActivity.class);
+        intent.putExtra(OBJECT_TO_DRAW, item);
+        startActivity(intent);
+    }
 }
